@@ -2,11 +2,17 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 )
 
 func main() {
 	s := "abcde"
 
-	fmt.Println(s[0:2])
-	fmt.Println(s[2:4])
+	for i, c := range s {
+		fmt.Println(i, reflect.TypeOf(c))
+	}
+
+	for i := 0; i < len(s); i++ {
+		fmt.Println(reflect.TypeOf(s[i]))
+	}
 }
