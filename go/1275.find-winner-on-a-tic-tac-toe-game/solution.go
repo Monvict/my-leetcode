@@ -4,38 +4,43 @@
 
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
 
-// import (
-// 	"bufio"
-// 	"fmt"
-// 	"os"
-
-// 	. "github.com/j178/leetgo/testutils/go"
-// )
+	. "github.com/j178/leetgo/testutils/go"
+)
 
 // @lc code=begin
 
 func tictactoe(moves [][]int) string {
-	playerA_X := 0
-	playerA_Y := 0
-	playerB_X := 0
-	playerB_Y := 0
+	// init a matrix
+	board := make([][]int, 3)
+	for i := range board {
+		board[i] = make([]int, 3)
+	}
 
+	// put the moves in a game board
 	for i, mov := range moves {
+		row := mov[0]
+		col := mov[1]
+
+		// 1 present for A
+		// 2 present for B
 		if i%2 == 0 {
-			playerA_X += mov[0]
-			playerA_Y += mov[1]
+			board[row][col] = 1
 		} else {
-			playerB_X += mov[0]
-			playerB_Y += mov[1]
+			board[row][col] = 2
 		}
 
-		if playerA_X == 3 && playerA_Y == 3 {
+		// check for has a winner after a step
+		winner := hasWinner(board)
+		if winner == 1 {
 			return "A"
 		}
 
-		if playerB_X == 3 && playerB_Y == 3 {
+		if winner == 2 {
 			return "B"
 		}
 	}
@@ -47,26 +52,54 @@ func tictactoe(moves [][]int) string {
 	return "Pending"
 }
 
+func hasWinner(board [][]int) int {
+	// row winner
+	for i := 0; i < 3; i++ {
+		if board[i][0] != 0 && board[i][0] == board[i][1] && board[i][1] == board[i][2] {
+			return board[i][0]
+		}
+	}
+
+	// col winner
+	for j := 0; j < 3; j++ {
+		if board[0][j] != 0 && board[0][j] == board[1][j] && board[1][j] == board[2][j] {
+			return board[0][j]
+		}
+	}
+
+	// dia winner
+	if board[0][0] != 0 && board[0][0] == board[1][1] && board[1][1] == board[2][2] {
+		return board[0][0]
+	}
+
+	// another-dia winner
+	if board[2][0] != 0 && board[2][0] == board[1][1] && board[1][1] == board[0][2] {
+		return board[2][0]
+	}
+
+	return 0
+}
+
 // @lc code=end
 
 func main() {
-	// stdin := bufio.NewReader(os.Stdin)
-	// moves := Deserialize[[][]int](ReadLine(stdin))
-	// ans := tictactoe(moves)
+	stdin := bufio.NewReader(os.Stdin)
+	moves := Deserialize[[][]int](ReadLine(stdin))
+	ans := tictactoe(moves)
 
-	// fmt.Println("\noutput:", Serialize(ans))
+	fmt.Println("\noutput:", Serialize(ans))
 
-	m := [][]int{
-		{0, 0},
-		{1, 1},
-		{2, 0},
-		{1, 0},
-		{1, 2},
-		{2, 1},
-		{0, 1},
-		{0, 2},
-		{2, 2},
-	}
+	// m := [][]int{
+	// 	{0, 0},
+	// 	{1, 1},
+	// 	{2, 0},
+	// 	{1, 0},
+	// 	{1, 2},
+	// 	{2, 1},
+	// 	{0, 1},
+	// 	{0, 2},
+	// 	{2, 2},
+	// }
 
-	fmt.Println(tictactoe(m))
+	// fmt.Println(tictactoe(m))
 }
