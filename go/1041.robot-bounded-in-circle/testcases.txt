@@ -1,0 +1,14 @@
+input:
+"GGLLGG"
+output:
+true
+
+input:
+"GG"
+output:
+false
+
+input:
+"GL"
+output:
+true
