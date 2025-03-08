@@ -12,7 +12,7 @@ import (
 	. "github.com/j178/leetgo/testutils/go"
 )
 
-// @lc code=begin
+// @lc codJe=begin
 
 func diagonalSum(mat [][]int) (ans int) {
 
