@@ -17,7 +17,7 @@ func largestPerimeter(nums []int) (ans int) {
 		return nums[i] > nums[j]
 	})
 
-	a, b, c, canMake := 0, 0, 0, false
+	a, b, c := 0, 0, 0
 
 	for i := 0; i < len(nums)-2; i++ {
 		c = nums[i]
@@ -25,15 +25,11 @@ func largestPerimeter(nums []int) (ans int) {
 		a = nums[i+2]
 
 		if a+b > c {
-			canMake = true
-			break
+			return a + b + c
 		}
 	}
 
-	if !canMake {
-		return 0
-	}
-	return a + b + c
+	return 0
 }
 
 // @lc code=end
