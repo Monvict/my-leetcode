@@ -4,27 +4,95 @@
 
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-
-	. "github.com/j178/leetgo/testutils/go"
-)
+import "fmt"
 
 // @lc code=begin
 
 func multiply(num1 string, num2 string) string {
-    
+	if num1 == "0" || num2 == "0" {
+		return "0"
+	}
+
+	mResult := ""
+	for i := len(num1) - 1; i >= 0; i-- {
+
+		carry := byte(0)
+		result := make([]byte, 0)
+		for j := len(num2) - 1; j >= 0; j-- {
+
+			a := num1[i] - '0'
+			b := num2[j] - '0'
+			sum := a*b + carry
+
+			current := sum % 10
+			carry = sum / 10
+
+			result = append(result, current+'0')
+		}
+
+		if carry > 0 {
+			result = append(result, carry+'0')
+		}
+
+		reverse(result)
+
+		for k := i; k < len(num1)-1; k++ {
+			result = append(result, '0')
+		}
+
+		mResult = addStrings(mResult, string(result))
+	}
+	return mResult
+}
+
+func addStrings(num1 string, num2 string) string {
+	if len(num1) == 0 {
+		return num2
+	}
+
+	if len(num2) == 0 {
+		return num1
+	}
+
+	i := len(num1) - 1
+	j := len(num2) - 1
+
+	resut := make([]byte, 0)
+	carry := byte(0)
+
+	for i >= 0 || j >= 0 || carry > 0 {
+		a := byte(0)
+		b := byte(0)
+
+		if i >= 0 {
+			a = num1[i] - '0'
+		}
+
+		if j >= 0 {
+			b = num2[j] - '0'
+		}
+
+		sum := a + b + carry
+		current := sum % 10
+		carry = sum / 10
+
+		resut = append(resut, current+'0')
+		i--
+		j--
+	}
+
+	reverse(resut)
+	return string(resut)
+}
+
+func reverse(arr []byte) {
+	for i, j := 0, len(arr)-1; i < j; i, j = i+1, j-1 {
+		arr[i], arr[j] = arr[j], arr[i]
+	}
 }
 
 // @lc code=end
 
 func main() {
-	stdin := bufio.NewReader(os.Stdin)
-	num1 := Deserialize[string](ReadLine(stdin))
-	num2 := Deserialize[string](ReadLine(stdin))
-	ans := multiply(num1, num2)
-
-	fmt.Println("\noutput:", Serialize(ans))
+	fmt.Println(multiply("123", "456"))
 }
