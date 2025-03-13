@@ -37,7 +37,7 @@ func multiply(num1 string, num2 string) string {
 
 		reverse(result)
 
-		// 被乘数，从第2位起就要补0
+		// 补零：被乘数，从第2位起就要补0
 		for k := i; k < len(num1)-1; k++ {
 			result = append(result, '0')
 		}
