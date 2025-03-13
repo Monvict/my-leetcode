@@ -30,6 +30,7 @@ func NewTokenBucket(cap float64, fillRate float64) *TokenBucket {
 // 加入令牌
 func (bucket *TokenBucket) reFill() {
 	elaps := time.Since(bucket.lastFillTime).Seconds()
+	bucket.lastFillTime = time.Now()
 
 	fillTokens := elaps * bucket.fillRate
 	bucket.tokens += fillTokens
@@ -37,7 +38,6 @@ func (bucket *TokenBucket) reFill() {
 	if bucket.tokens > bucket.capacity {
 		bucket.tokens = bucket.capacity
 	}
-	bucket.lastFillTime = time.Now()
 }
 
 func (bucket *TokenBucket) Allow() bool {
