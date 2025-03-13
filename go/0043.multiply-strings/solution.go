@@ -15,15 +15,16 @@ func multiply(num1 string, num2 string) string {
 
 	mResult := ""
 	for i := len(num1) - 1; i >= 0; i-- {
-
+		// 进位
 		carry := byte(0)
 		result := make([]byte, 0)
 		for j := len(num2) - 1; j >= 0; j-- {
-
+			// 被乘数
 			a := num1[i] - '0'
+			// 乘数
 			b := num2[j] - '0'
-			sum := a*b + carry
 
+			sum := a*b + carry
 			current := sum % 10
 			carry = sum / 10
 
@@ -36,15 +37,18 @@ func multiply(num1 string, num2 string) string {
 
 		reverse(result)
 
+		// 被乘数，从第2位起就要补0
 		for k := i; k < len(num1)-1; k++ {
 			result = append(result, '0')
 		}
 
+		// 每次被乘数和乘数得到一个结果后，就相加
 		mResult = addStrings(mResult, string(result))
 	}
 	return mResult
 }
 
+// 字符串的加法
 func addStrings(num1 string, num2 string) string {
 	if len(num1) == 0 {
 		return num2
