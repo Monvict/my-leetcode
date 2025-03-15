@@ -14,24 +14,21 @@ import (
 
 func reverseList(head *ListNode) (ans *ListNode) {
 
-	vals := make([]int, 0)
-	for head != nil {
-		val := head.Val
-		vals = append(vals, val)
-		head = head.Next
+	var tail *ListNode
+	current := head
+
+	for current != nil {
+		// 先记录下一个节点（因为下一步current.Next就改变了）
+		next := current.Next
+		current.Next = tail
+
+		// tail节点后移
+		tail = current
+		// 当前节点后移
+		current = next
 	}
 
-	dummy := &ListNode{}
-	p := dummy
-	for i := len(vals) - 1; i >= 0; i-- {
-		n := &ListNode{
-			Val: vals[i],
-		}
-		p.Next = n
-		p = p.Next
-	}
-
-	return dummy.Next
+	return tail
 }
 
 func createList(nums []int) *ListNode {
