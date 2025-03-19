@@ -11,27 +11,33 @@ import (
 // @lc code=begin
 
 func removeDuplicates(nums []int) (ans int) {
-	nunMaps := make(map[int]int, 0)
 
 	pos := 0
+	repeat := 1
 
-	for i := 0; i < len(nums); i++ {
-		num := nums[i]
-		if nunMaps[num] <= 1 {
-			nunMaps[num]++
+	for i := 1; i < len(nums); i++ {
+		if nums[pos] == nums[i] {
+			repeat++
 
-			nums[pos] = num
+			if repeat <= 2 {
+				nums[pos+1] = nums[i]
+				pos++
+			}
+		} else {
+			nums[pos+1] = nums[i]
 			pos++
+			repeat = 1
 		}
+
 	}
 
 	fmt.Println(nums)
-	return pos
+	return pos + 1
 }
 
 // @lc code=end
 
 func main() {
 	nums := []int{0, 0, 1, 1, 1, 1, 2, 3, 3}
-	removeDuplicates(nums)
+	fmt.Println("pos", removeDuplicates(nums))
 }

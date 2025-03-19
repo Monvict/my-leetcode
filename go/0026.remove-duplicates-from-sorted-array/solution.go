@@ -12,18 +12,17 @@ import (
 
 func removeDuplicates(nums []int) (ans int) {
 	pos := 0
-	numMap := make(map[int]int, 0)
 
-	for i := 0; i < len(nums); i++ {
-		num := nums[i]
-		if numMap[num] == 0 {
-			numMap[num]++
-
-			nums[pos] = nums[i]
+	// i = 1 --> means skip the fisrt one
+	for i := 1; i < len(nums); i++ {
+		if nums[pos] != nums[i] {
+			nums[pos+1] = nums[i]
 			pos++
 		}
 	}
-	return pos
+
+	fmt.Println(nums)
+	return pos + 1
 }
 
 // @lc code=end

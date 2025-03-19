@@ -15,7 +15,11 @@ import (
 // @lc code=begin
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) (ans *ListNode) {
+	// 1. 反转链表 #206
 
+	// 2. 链表相加 #2
+
+	// 3. 得到结果
 	return
 }
 
