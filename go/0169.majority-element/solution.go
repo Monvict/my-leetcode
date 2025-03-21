@@ -4,17 +4,34 @@
 
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-
-	. "github.com/j178/leetgo/testutils/go"
-)
+import "fmt"
 
 // @lc code=begin
 
 func majorityElement(nums []int) (ans int) {
+
+	// refer https://www.cs.utexas.edu/~moore/best-ideas/mjrty/index.html
+	cnt := 1
+	majority := nums[0]
+
+	for i := 1; i < len(nums); i++ {
+		num := nums[i]
+
+		if cnt == 0 {
+			majority = num
+		}
+
+		if num == majority {
+			cnt++
+		} else {
+			cnt--
+		}
+
+	}
+	return majority
+}
+
+func majorityElement2(nums []int) (ans int) {
 	numMap := make(map[int]int)
 	len := len(nums)
 	for _, num := range nums {
@@ -30,9 +47,7 @@ func majorityElement(nums []int) (ans int) {
 // @lc code=end
 
 func main() {
-	stdin := bufio.NewReader(os.Stdin)
-	nums := Deserialize[[]int](ReadLine(stdin))
-	ans := majorityElement(nums)
+	number := []int{6, 5, 5}
 
-	fmt.Println("\noutput:", Serialize(ans))
+	fmt.Println("Maj ", majorityElement(number))
 }
