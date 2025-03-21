@@ -27,14 +27,27 @@ func maxProfit(prices []int) (ans int) {
 	// 	}
 	// }
 
-	profit := 0
+	// profit := 0
 
-	for i := 0; i < len(prices); i++ {
-		for j := i + 1; j < len(prices); j++ {
-			delta := prices[j] - prices[i]
-			if delta > profit {
-				profit = delta
-			}
+	// for i := 0; i < len(prices); i++ {
+	// 	for j := i + 1; j < len(prices); j++ {
+	// 		delta := prices[j] - prices[i]
+	// 		if delta > profit {
+	// 			profit = delta
+	// 		}
+	// 	}
+	// }
+
+	profit := 0
+	minPrice := prices[0]
+
+	for i := 1; i < len(prices); i++ {
+		delta := prices[i] - minPrice
+
+		if delta < 0 {
+			minPrice = prices[i]
+		} else if delta > profit {
+			profit = delta
 		}
 	}
 	return profit
@@ -43,6 +56,6 @@ func maxProfit(prices []int) (ans int) {
 // @lc code=end
 
 func main() {
-	nums := []int{7, 6, 4, 3, 1}
+	nums := []int{2, 4, 1}
 	fmt.Println(maxProfit(nums))
 }
