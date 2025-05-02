@@ -2,15 +2,23 @@ package main
 
 import (
 	"fmt"
-	"sort"
+
+	. "github.com/j178/leetgo/testutils/go"
 )
 
 func main() {
-	nums := []int{1, 2, 1, 10}
+	nmap := make(map[int]int)
 
-	sort.Slice(nums, func(i, j int) bool {
-		return nums[i] > nums[j]
-	})
+	nmap[2] = 55
+	fmt.Println(nmap[1])
+	fmt.Println(nmap[2])
 
-	fmt.Println(nums)
+	if nmap[3] == 0 {
+		nmap[3]++
+	}
+
+	for i := 0; i < 10; i++ {
+		fmt.Println("Nice to meet you")
+	}
+	fmt.Println(nmap[3])
 }
